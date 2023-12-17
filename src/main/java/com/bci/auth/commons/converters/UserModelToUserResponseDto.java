@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,11 +31,11 @@ public class UserModelToUserResponseDto implements Converter<User, UserResponseD
 
         userResponseDto.setId(userModel.getId());
         userResponseDto.setActive(userModel.isActive());
-        userResponseDto.setCreated(userModel.getCreated());
+        userResponseDto.setCreated(this.formatToDate(userModel.getCreated()));
         userResponseDto.setEmail(userModel.getEmail());
         userResponseDto.setPhones(this.setPhones(userModel.getPhones()));
         userResponseDto.setName(userModel.getName());
-        userResponseDto.setLastLogin(userModel.getLastLogin());
+        userResponseDto.setLastLogin(this.formatToDate(userModel.getLastLogin()));
         userResponseDto.setToken(this.jwtTokenService.generateToken(userModel));
         userResponseDto.setPassword(userModel.getPassword());
 
@@ -46,4 +48,16 @@ public class UserModelToUserResponseDto implements Converter<User, UserResponseD
                 .collect(Collectors.toList());
     }
 
+    private String formatToDate(LocalDateTime ld) {
+
+        try {
+            DateTimeFormatter originalDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS");
+            DateTimeFormatter desiredDateFormat = DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm:ss a");
+            String formattedDate = ld.format(desiredDateFormat);
+
+            return formattedDate;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

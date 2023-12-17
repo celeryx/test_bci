@@ -1,8 +1,8 @@
 package com.bci.auth.commons.dtos.responses.user;
 
 import com.bci.auth.commons.dtos.user.UserPhoneDto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,16 +13,16 @@ public class UserResponseDto {
     private String email;
     private String password;
     private List<UserPhoneDto> phones;
-    private LocalDateTime created;
-    private LocalDateTime lastLogin;
+    private String created;
+    private String lastLogin;
     private String token;
     private boolean isActive;
 
     public UserResponseDto() {
     }
 
-    public UserResponseDto(UUID id, String name, String email, String password, List<UserPhoneDto> phones,
-                           LocalDateTime created, LocalDateTime lastLogin, String token, boolean isActive) {
+    public UserResponseDto(UUID id, String name, String email, String password,
+                           List<UserPhoneDto> phones, String created, String lastLogin, String token, boolean isActive) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -32,6 +32,23 @@ public class UserResponseDto {
         this.lastLogin = lastLogin;
         this.token = token;
         this.isActive = isActive;
+    }
+
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    public String getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(String lastLogin) {
+        this.lastLogin = lastLogin;
     }
 
     public UUID getId() {
@@ -74,22 +91,6 @@ public class UserResponseDto {
         this.phones = phones;
     }
 
-    public LocalDateTime getCreated() {
-        return created;
-    }
-
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
-    }
-
-    public LocalDateTime getLastLogin() {
-        return lastLogin;
-    }
-
-    public void setLastLogin(LocalDateTime lastLogin) {
-        this.lastLogin = lastLogin;
-    }
-
     public String getToken() {
         return token;
     }
@@ -98,11 +99,27 @@ public class UserResponseDto {
         this.token = token;
     }
 
+    @JsonProperty("isActive")
     public boolean isActive() {
         return isActive;
     }
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    @Override
+    public String toString() {
+        return "UserResponseDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phones=" + phones +
+                ", created=" + created +
+                ", lastLogin=" + lastLogin +
+                ", token='" + token + '\'' +
+                ", isActive=" + isActive +
+                '}';
     }
 }

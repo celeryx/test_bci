@@ -60,8 +60,8 @@ public class UserControllerTest {
         userCreationRequestDto = new UserCreationRequestDto("Julio Gonzalez", "julio@t1es2tssw.cl", "a2asfGfdfdf4", new ArrayList<>());
         userLoginRequestDto = new UserLoginRequestDto("julio@t1es2tssw.cl", "a2asfGfdfdf4");
         userResponseDto = new UserResponseDto(UUID.randomUUID(), "Julio Gonzalez", "julio@t1es2tssw.cl",
-                "$2a$10$17woQH1R7WVRdwI3ZE8CHu.UgzhLaPW3iszLeDF.Xq3ZHq4/jpscK", new ArrayList<>(), LocalDateTime.now(),
-                LocalDateTime.now(),
+                "$2a$10$17woQH1R7WVRdwI3ZE8CHu.UgzhLaPW3iszLeDF.Xq3ZHq4/jpscK", new ArrayList<>(), LocalDateTime.now().toString(),
+                LocalDateTime.now().toString(),
                 "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWxpb0B0MWVzMnRzc3cuY2wiLCJpYXQiOjE3MDI3ODkyNDIsImV4cCI6MTcwMjc4OTU0Mn0.5ZXcVB2FYqSE2SIC3QDqVSMbvGHDYuGdceD5-293eOFLR5SypjUNGaPoKSBn3BkOPfKLJHt04BTIO0WNX5wdKQ",
                 true);
     }
@@ -79,7 +79,7 @@ public class UserControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.name").value("Julio Gonzalez"))
                 .andExpect(jsonPath("$.email").value("julio@t1es2tssw.cl"))
-                .andExpect(jsonPath("$.active").value(true))
+                .andExpect(jsonPath("$.isActive").value(true))
                 .andDo(print());
     }
 
@@ -95,7 +95,7 @@ public class UserControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.name").value("Julio Gonzalez"))
                 .andExpect(jsonPath("$.email").value("julio@t1es2tssw.cl"))
-                .andExpect(jsonPath("$.active").value(true))
+                .andExpect(jsonPath("$.isActive").value(true))
                 .andDo(print());
     }
 }
