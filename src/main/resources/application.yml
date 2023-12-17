@@ -19,3 +19,6 @@ server:
   error:
     include-message: always
   port: ${PORT}
+jwt:
+  secret_key: ${JWT_SECRET_KEY}
+  expiration_time: ${JWT_EXPIRATION_TIME_MS}

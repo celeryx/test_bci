@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
@@ -14,8 +15,11 @@ import java.util.Date;
 @Service
 public class JwtTokenService {
     private static final Logger logger = LoggerFactory.getLogger(JwtTokenService.class);
-    private static final String SECRET_KEY = "9a4f2c8d3b7a1e6f45c8a0b3f267d8b1d4e6f3c8a9d2b5f8e3a9c8b5f6v8a3d9";
-    private static final long EXPIRATION_TIME = 300_000;
+
+    @Value("${jwt.expiration_time}")
+    private long EXPIRATION_TIME;
+    @Value("${jwt.secret_key}")
+    private String SECRET_KEY;
 
     public String generateToken(com.bci.auth.models.user.User user) {
 

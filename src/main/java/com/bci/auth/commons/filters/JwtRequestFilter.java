@@ -19,6 +19,9 @@ import java.util.Objects;
 public class JwtRequestFilter extends OncePerRequestFilter {
 
 
+    private static final String AUTHORIZATION = "Authorization";
+    private static final String BEARER = "Bearer ";
+
     private final JwtTokenService jwtTokenService;
 
     @Autowired
@@ -30,9 +33,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
 
-        final String authorizationHeader = request.getHeader("Authorization");
+        final String authorizationHeader = request.getHeader(AUTHORIZATION);
 
-        if (!Objects.isNull(authorizationHeader) && authorizationHeader.startsWith("Bearer ")) {
+        if (!Objects.isNull(authorizationHeader) && authorizationHeader.startsWith(BEARER)) {
             String jwt = authorizationHeader.substring(7);
             if (jwtTokenService.validateToken(jwt)) {
                 String username = jwtTokenService.extractUsername(jwt);
