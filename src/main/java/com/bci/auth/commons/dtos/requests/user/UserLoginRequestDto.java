@@ -14,6 +14,10 @@ public class UserLoginRequestDto {
             message = "Password should be 8 to 12 characters long and include at least one uppercase letter and two numbers. The numbers can be non-consecutive.")
     String password;
 
+    public UserLoginRequestDto() {
+
+    }
+
     public UserLoginRequestDto(String email, String password) {
         this.email = email;
         this.password = password;

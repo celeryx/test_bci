@@ -6,6 +6,7 @@ plugins {
 
 group = 'com.bci'
 version = '0.0.1-SNAPSHOT'
+apply plugin: 'jacoco'
 
 java {
     sourceCompatibility = '11'
@@ -13,6 +14,10 @@ java {
 
 repositories {
     mavenCentral()
+}
+
+jacoco {
+    toolVersion = "0.8.5"
 }
 
 dependencies {
@@ -26,8 +31,33 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.12.0'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.mockito:mockito-inline:3.11.2'
+
 }
 
 tasks.named('test') {
-    useJUnit()
+    useJUnitPlatform()
+    filter {
+        includeTestsMatching "com.bci.auth.*"
+    }
+    finalizedBy jacocoTestReport
 }
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, excludes: ["com/bci/auth/**/BciApplication*.class",
+                                         "**/models/**/*.class",
+                                         "**/dtos/**/*.class"])
+        }))
+    }
+}
+
