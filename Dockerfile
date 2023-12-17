@@ -12,6 +12,8 @@ RUN ./gradlew clean build
 
 FROM openjdk:11-jre-slim-buster
 
+RUN ln -sf /usr/share/zoneinfo/America/Santiago /etc/localtime && echo "America/Santiago" > /etc/timezone
+
 COPY --from=build /home/build/libs/*SNAPSHOT.jar app.jar
 
 ENV PORT 8090
