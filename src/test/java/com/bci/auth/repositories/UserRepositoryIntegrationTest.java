@@ -26,7 +26,6 @@ public class UserRepositoryIntegrationTest {
 
     @Test
     public void whenFindByEmail_thenReturnUser() {
-        // given
         User user = new User();
         user.setEmail("aaaaa@dominio.algo");
         user.setName("test");
@@ -37,11 +36,7 @@ public class UserRepositoryIntegrationTest {
         user.setPassword("testpassword");
         entityManager.persist(user);
         entityManager.flush();
-
-        // when
         Optional<User> found = userRepository.findByEmail(user.getEmail());
-
-        // then
         assertTrue(found.isPresent());
         assertEquals(found.get().getEmail(), user.getEmail());
     }

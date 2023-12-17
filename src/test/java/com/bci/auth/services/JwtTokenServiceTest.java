@@ -1,7 +1,6 @@
 package com.bci.auth.services;
 
 import com.bci.auth.models.user.User;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -59,6 +58,6 @@ public class JwtTokenServiceTest {
         user.setEmail("test@example.com");
         String token = jwtTokenService.generateToken(user);
         String username = jwtTokenService.extractUsername(token);
-        assertEquals( "test@example.com", username, "Extracted username should match");
+        assertEquals("test@example.com", username, "Extracted username should match");
     }
 }

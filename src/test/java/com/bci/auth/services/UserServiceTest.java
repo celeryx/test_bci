@@ -64,31 +64,22 @@ public class UserServiceTest {
 
     @Test
     public void createUser_ShouldReturnUserResponseDto_WhenUserCreationRequestDtoIsValid() {
-        // Act
         UserResponseDto result = userService.createUser(userCreationRequestDto);
-
-        // Assert
         assertNotNull(result);
         verify(userRepository, times(1)).save(any(User.class));
     }
 
     @Test
     public void findUser_ShouldReturnUserResponseDto_WhenCredentialsAreValid() {
-        // Arrange
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(user));
         when(passwordEncoder.matches(anyString(), anyString())).thenReturn(true);
-
-        // Act
         UserResponseDto result = userService.findUser(new UserLoginRequestDto(user.getEmail(), "password"));
-
-        // Assert
         assertNotNull(result);
         verify(userRepository, times(1)).findByEmail(anyString());
     }
 
     @Test
     public void findUser_ShouldThrowUserNotFoundException_WhenUserDoesNotExist() {
-        // Arrange
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.empty());
 
         assertThrows(UserNotFoundException.class, () -> {

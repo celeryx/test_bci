@@ -32,17 +32,14 @@ public class UserCreationRqToUserModelTest {
 
     @Test
     public void convert_ShouldTransformUserCreationRequestDtoToUser() {
-        // Arrange
         UserCreationRequestDto userCreationRequestDto = new UserCreationRequestDto();
         userCreationRequestDto.setName("Test User");
         userCreationRequestDto.setEmail("test@example.com");
         userCreationRequestDto.setPassword("password123");
         userCreationRequestDto.setPhones(Arrays.asList(new UserPhoneDto(123456789, 1, "57")));
 
-        // Act
         User result = converter.convert(userCreationRequestDto);
 
-        // Assert
         assertNotNull(result);
         assertEquals("Test User", result.getName());
         assertEquals("test@example.com", result.getEmail());

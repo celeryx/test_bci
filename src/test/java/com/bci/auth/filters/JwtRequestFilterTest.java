@@ -5,7 +5,6 @@ import com.bci.auth.services.JwtTokenService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -25,22 +24,9 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class JwtRequestFilterTest {
 
-    private static class TestableJwtRequestFilter extends JwtRequestFilter {
-        public TestableJwtRequestFilter(JwtTokenService jwtTokenService) {
-            super(jwtTokenService);
-        }
-
-        public void testDoFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-                throws ServletException, IOException {
-            super.doFilterInternal(request, response, chain);
-        }
-    }
-
     @Mock
     private JwtTokenService jwtTokenService;
-
     private TestableJwtRequestFilter jwtRequestFilter;
-
     @Mock
     private FilterChain filterChain;
 
@@ -82,5 +68,14 @@ class JwtRequestFilterTest {
         verify(filterChain, times(1)).doFilter(request, response);
     }
 
-    // Additional test cases as needed
+    private static class TestableJwtRequestFilter extends JwtRequestFilter {
+        public TestableJwtRequestFilter(JwtTokenService jwtTokenService) {
+            super(jwtTokenService);
+        }
+
+        public void testDoFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+                throws ServletException, IOException {
+            super.doFilterInternal(request, response, chain);
+        }
+    }
 }

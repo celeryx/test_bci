@@ -34,7 +34,6 @@ public class UserModelToUserResponseDtoTest {
 
     @Test
     public void convert_ShouldTransformUserToUserResponseDto() {
-        // Arrange
         User user = new User();
         user.setId(UUID.randomUUID());
         user.setActive(true);
@@ -44,11 +43,7 @@ public class UserModelToUserResponseDtoTest {
         user.setName("Test User");
         user.setPassword("password123");
         user.setPhones(Arrays.asList(new UserPhone(123456789, 1, "57")));
-
-        // Act
         UserResponseDto result = converter.convert(user);
-
-        // Assert
         assertNotNull(result);
         assertEquals("Test User", result.getName());
         assertEquals("test@example.com", result.getEmail());
